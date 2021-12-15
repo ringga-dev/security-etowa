@@ -20,8 +20,8 @@
                     <div class="card-body">
                         <form action="<?= base_url('AdminControl/produc') ?>" method="POST" class="col-md-12  text-right m-2">
                             <div class="text-right">
-                                <a href="" class="btn btn-info mr-2 center" data-toggle="modal" data-target="#modal-xl"><i class="fas fa-qrcode fa-2x"></i></a>
-                                <a href="<?= base_url() ?>/home/deleteScanAll/" class="btn btn-danger mr-2 center remove-mata"><i class="fas fa-qrcode fa-2x"></i></a>
+                                <a href="<?= base_url('globalView/absen_user') ?>" class="btn btn-info mr-2 center"><i class="fas fa-qrcode fa-2x"></i></a>
+                                <a href="<?= base_url() ?>/home/deleteScanAll/" class="btn btn-danger mr-2 center remove-mata"><i class="fas fa-trash-alt fa-2x"></i></a>
                             </div>
 
                         </form>
@@ -75,47 +75,7 @@
 </section>
 <!-- /.content -->
 
-<!-- modal barang add -->
-<div class="modal fade" id="modal-xl">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">SCAN Form</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <!-- class="was-validated" -->
-            <form>
-                <?= csrf_field() ?>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card-body">
 
-                                <div class="form-group">
-                                    <label for="harga">ID - Bet</label>
-                                    <div class="input-group">
-                                        <textarea name="barang" id="barang" cols="30" style="width: 100%;"></textarea>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- /.col (RIGHT) -->
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" id="scan" class="btn btn-primary">Save</button>
-                </div>
-            </form>
-        </div>
-
-
-    </div>
-</div>
 <!-- /.modal-content -->
 <script>
     $(document).ready(function() {

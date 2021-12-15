@@ -37,7 +37,8 @@
         </form>
 
         <p class="mb-0">
-            <a href="<?= base_url('auth/register'); ?>" class="text-center">register</a>
+            <a href="<?= base_url('auth/register'); ?>" class="text-center">REGISTER</a><br />
+
         </p>
     </div>
     <!-- /.card-body -->

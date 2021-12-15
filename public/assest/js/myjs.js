@@ -145,6 +145,29 @@ $('.hapus-menu').on('click', function(e) {
                 // document.location.href = url;
             } 
         })
+      })
+    
+       $('.ok-download-sampel').on('click', function(e) {
+          e.preventDefault();
+          
+        const url = $(this).attr('src');
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "ini akan mengizinkan untuk mendownload file sampel!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Download it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // let fileName = url.replace(/^.*?([^\\\/]*)$/, '$1');
+                console.log(fileName);
+                saveAs(url, "sampel.xlsx");
+                // document.location.href = url;
+            } 
+        })
     })
 
 

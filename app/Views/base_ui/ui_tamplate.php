@@ -24,11 +24,8 @@
     <link rel="stylesheet" href="<?= base_url('tamplate/admin') ?>/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="<?= base_url('tamplate/admin') ?>/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
-
-
     <!-- summernote -->
     <link rel="stylesheet" href="<?= base_url('tamplate/admin') ?>/plugins/summernote/summernote-bs4.min.css">
-    <script src="<?= base_url('tamplate/admin') ?>/plugins/summernote/summernote-bs4.min.js"></script>
 
 
     <!-- jQuery -->
@@ -36,6 +33,7 @@
     <script src="<?= base_url('assest/js/typeahead.bundle.js') ?>"></script>
     <script src="<?= base_url('assest/js/bootstrap-autocomplete.js') ?>"></script>
     <script src="<?= base_url('assest/js') ?>/bootstrap3-typeahead.min.js"></script>
+
     <!-- DataTables  & Plugins -->
     <script src="<?= base_url('tamplate/admin') ?>/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="<?= base_url('tamplate/admin') ?>/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -55,6 +53,32 @@
 
     <!-- Select2 -->
     <script src="<?= base_url('tamplate/admin') ?>/plugins/select2/js/select2.full.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="<?= base_url('tamplate/admin') ?>/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!--        https://cdnjs.com/libraries/moment.js/-->
+    <script src="<?= base_url("assest/js/moment.min.js") ?>"></script>
+
+    <!--        https://cdnjs.com/libraries/bootstrap-datetimepicker-->
+    <link type="text/css" rel="stylesheet" href="<?= base_url("assest/css/bootstrap-datetimepicker.min.css") ?>" />
+    <script type="text/javascript" src=<?= base_url("assest/js/bootstrap-datetimepicker.min.js") ?>></script>
+    <script src="<?= base_url('tamplate/admin') ?>/plugins/summernote/summernote-bs4.min.js"></script>
+
+
+    <!-- CodeMirror -->
+    <script src="<?= base_url('tamplate/admin') ?>/plugins/codemirror/codemirror.js"></script>
+    <script src="<?= base_url('tamplate/admin') ?>/plugins/codemirror/mode/css/css.js"></script>
+    <script src="<?= base_url('tamplate/admin') ?>/plugins/codemirror/mode/xml/xml.js"></script>
+    <script src="<?= base_url('tamplate/admin') ?>/plugins/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+
+
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+    <!-- C:\xampp\htdocs\mobile\public\assest\js\daterangepicker.css -->
+    <!-- Latest compiled and minified JavaScript -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
 
 
 </head>
@@ -109,8 +133,6 @@
                     </div>
                 </div>
 
-
-
                 <!-- Sidebar Menu -->
                 <?= $this->renderSection('menu'); ?>
                 <!-- /.sidebar-menu -->
@@ -157,8 +179,7 @@
 
     <!-- REQUIRED SCRIPTS -->
 
-    <!-- Bootstrap -->
-    <script src="<?= base_url('tamplate/admin') ?>/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
     <!-- overlayScrollbars -->
     <script src="<?= base_url('tamplate/admin') ?>/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     <!-- AdminLTE App -->
@@ -170,9 +191,15 @@
 
     <!-- SweetAlert2 -->
     <script src="<?= base_url('tamplate/admin') ?>/plugins/sweetalert2/sweetalert2.min.js"></script>
+
     <script>
         <?php $pesan = session()->getFlashdata('pesan') ?>
         $(function() {
+
+            $(".timepicker").datetimepicker({
+                format: "HH:mm"
+            });
+
             <?php if ($pesan) { ?>
                 <?php if ($pesan['stts'] != true) { ?>
 
@@ -195,6 +222,24 @@
                     })
             <?php }
             } ?>
+        });
+    </script>
+
+    <script>
+        $(function() {
+
+            $("#datetimeEndPicker").datetimepicker({
+                useCurrent: false //Important! See issue #1075
+            });
+
+            $("#datetimeStartPicker").on("dp.change", function(e) {
+                $("#datetimeEndPicker").data("DateTimePicker").minDate(e.date);
+            });
+
+            $("#datetimeEndPicker").on("dp.change", function(e) {
+                $("#datetimeStartPicker").data("DateTimePicker").maxDate(e.date);
+            });
+
         });
     </script>
 

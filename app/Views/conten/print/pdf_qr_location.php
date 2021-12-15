@@ -43,12 +43,12 @@
             text-transform: uppercase;
             font-weight: bold;
             color: #4f5b62;
-            font-size: 18px;
+            font-size: 20px;
         }
 
         .card__title {
             margin-bottom: 10px;
-            font-size: 24px;
+            font-size: 20px;
             text-transform: uppercase;
             font-weight: bold;
         }
@@ -56,6 +56,7 @@
         .card__link {
             color: #000a12;
             text-decoration: none;
+            font-size: 18px;
             transition: color 0.3s ease-in-out;
         }
 
@@ -65,7 +66,7 @@
 
         .card__excerpt {
             color: #263238;
-            font-size: 20px;
+            font-size: 15px;
         }
 
         [data-seo-container] {
@@ -111,7 +112,7 @@
                                 <div class="card__content">
                                     <p class="card__category"><?= $u['qr']; ?></p>
                                     <h2 class="card__title">
-                                        <a class="card__link" target="_blank" data-seo-target><?= $u['stts']; ?></a>
+                                        <a class="card__link" style="font-size: 20px;" target="_blank" data-seo-target><?= $u['stts']; ?></a>
                                     </h2>
                                     <p class="card__excerpt"> <?= $u['dec']; ?></p>
                                 </div>
@@ -133,3 +134,4 @@
 </body>
 
 </html>
+

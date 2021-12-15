@@ -21,6 +21,7 @@
                         <form action="<?= base_url('AdminControl/produc') ?>" method="POST" class="col-md-12  text-right m-2">
                             <div class=" text-right">
                                 <a href="" class="btn btn-info mr-2 center" data-toggle="modal" data-target="#modal-xl"><i class="fas fa-plus-square fa-2x"></i></a>
+                                <a href="<?= base_url() ?>/home/delete_userAll" class="btn btn-danger mr-2 hapus"><i class="fas fa-trash-alt fa-2x"></i></a>
                             </div>
                         </form>
                         <table id="example2" class="table table-bordered table-hover">
@@ -42,11 +43,10 @@
                                         <td><?= $i++ ?></td>
                                         <td><?= $u['name']; ?></td>
                                         <td><?= $u['bet_id']; ?></td>
-                                        <td><?= $u['create']; ?></td>
+                                        <td><?= $u['create'] ?></td>
                                         <td>
                                             <a href="<?= base_url() ?>/home/delete_user/<?= $u['id']; ?>" class="badge badge-danger m-1 hapus"><i class="fas fa-trash-alt fa-2x"></i></a>
                                         </td>
-
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>

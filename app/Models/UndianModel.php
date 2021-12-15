@@ -99,4 +99,10 @@ class UndianModel extends Model
         $this->db->table('user_undian')->where(['bet_id' => $bet])->update(['is_active' => 1]);
         return ['stts' => true, 'msg' => 'Proses berhasil...!'];
     }
+
+    public function deleteUserAll()
+    {
+        $this->db->table('user_undian')->truncate();
+        return ['stts' => true, 'msg' => 'Proses berhasil...!'];
+    }
 }

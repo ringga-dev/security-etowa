@@ -85,9 +85,9 @@
                             <img class="ok-download" src="<?= $lokasi ?>" />
                         </div>
                         <div class="card-body">
-                            <h2 class="text" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; "><?= $u['stts']; ?></h2>
-                            <h2 class="text" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; "> ID = <?= $u['qr']; ?></h2>
-                            <h3 style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-weight: normal;">
+                            <h2 class="text" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: 20px;"><?= $u['stts']; ?></h2>
+                            <h2 class="text" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: 20px"><?= $u['qr']; ?></h2>
+                            <h3 style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-weight: normal; font-size: 15px">
                                 <?= $u['dec']; ?>
                             </h3>
                         </div>

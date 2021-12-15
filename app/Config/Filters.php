@@ -34,7 +34,8 @@ class Filters extends BaseConfig
                 'except' => [
                     'auth', 'auth/*',
                     'userapi', 'userapi/*',
-                    'globalview', 'globalview/*'
+                    'globalview', 'globalview/*',
+                    'dataterbuka', 'dataterbuka/*'
                 ]
             ]
             // 'honeypot',
@@ -46,6 +47,8 @@ class Filters extends BaseConfig
                     'home', 'home/*',
                     'admin', 'admin/*',
                     'globalview', 'globalview/*',
+                    'userapi', 'userapi/*',
+                    'dataterbuka', 'dataterbuka/*'
 
                 ]
             ],

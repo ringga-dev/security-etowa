@@ -30,6 +30,18 @@ class AdminModel extends Model
         }
     }
 
+    public function aksesBlok_userApp($id)
+    {
+        $data = $this->db->table('user_app')->where(['id' => $id])->get()->getRowArray();
+        if ($data['enable_login'] == 1) {
+            $this->db->table('user_app')->where(['id' => $id])->update(['enable_login' => 2]);
+            return ['stts' => false, 'msg' => 'Akses di blok...!'];
+        } else {
+            $this->db->table('user_app')->where(['id' => $id])->update(['enable_login' => 1]);
+            return ['stts' => true, 'msg' => 'Akses di berikan...!'];
+        }
+    }
+
     public function getUserApp()
     {
         return $this->db->table('user_app')->get()->getResultArray();
@@ -191,5 +203,161 @@ class AdminModel extends Model
             ];
         }
         return $pesan;
+    }
+
+    public function getLateUser($user = 'all', $date = 'all')
+    {
+        $tgl = explode("-", $date);
+        $tahun = $tgl[0];
+        $bulan = $tgl[1];
+
+        if ($user == 'all' && $date == 'all') {
+            $data = $this->db->table('mas_late_user')->select("mas_late_user.*, user_app.name, mas_shift.shift, mas_shift.masuk, mas_shift.s_rest")
+                ->join('mas_shift', 'mas_shift.id = mas_late_user.id_shift')->join('user_app', 'user_app.id_bet = mas_late_user.id_bet')
+                ->get()->getResultArray();
+        } elseif ($user && $date == 'all') {
+            $data = $this->db->table('mas_late_user')->select("mas_late_user.*, user_app.name, mas_shift.shift, mas_shift.masuk, mas_shift.s_rest")
+                ->join('mas_shift', 'mas_shift.id = mas_late_user.id_shift')->join('user_app', 'user_app.id_bet = mas_late_user.id_bet')
+                ->where(['mas_late_user.id_bet' => $user])
+                ->get()->getResultArray();
+        } elseif ($user == 'all' && $date) {
+            $data = $this->db->table('mas_late_user')->select("mas_late_user.*, user_app.name, mas_shift.shift, mas_shift.masuk, mas_shift.s_rest")
+                ->join('mas_shift', 'mas_shift.id = mas_late_user.id_shift')->join('user_app', 'user_app.id_bet = mas_late_user.id_bet')
+                ->where(" YEAR(mas_late_user.date) = '$tahun' AND MONTH(mas_late_user.date) ='$bulan'")
+                ->get()->getResultArray();
+        } elseif ($user && $date) {
+            $data = $this->db->table('mas_late_user')->select("mas_late_user.*, user_app.name, mas_shift.shift, mas_shift.masuk, mas_shift.s_rest")
+                ->join('mas_shift', 'mas_shift.id = mas_late_user.id_shift')->join('user_app', 'user_app.id_bet = mas_late_user.id_bet')
+                ->where("mas_late_user.id_bet = '$user' AND YEAR(mas_late_user.date) = '$tahun' AND MONTH(mas_late_user.date) ='$bulan'")
+                ->get()->getResultArray();
+        }
+        return $data;
+    }
+
+
+    public function getShift()
+    {
+        return $this->db->table('mas_shift')->get()->getResultArray();
+    }
+
+    public function addShift($data)
+    {
+        $this->db->table('mas_shift')->insert($data);
+        return ['stts' => true, 'msg' => 'Proses berhasil...!'];
+    }
+
+    public function editShift($id, $data)
+    {
+        $this->db->table('mas_shift')->where(['id' => $id])->update($data);
+        return ['stts' => true, 'msg' => 'Proses update berhasil...!'];
+    }
+
+    public function deleteShift($id)
+    {
+        $this->db->table('mas_shift')->where(['id' => $id])->delete();
+        return ['stts' => true, 'msg' => 'Proses update berhasil...!'];
+    }
+
+
+    public function getGagalfinger($user = 'all', $date = 'all')
+    {
+        $tgl = explode("-", $date);
+        $tahun = $tgl[0];
+        $bulan = $tgl[1];
+
+        if ($user == 'all' && $date == 'all') {
+            $data = $this->db->table('mas_failed_for_finger')->select("mas_failed_for_finger.*, user_app.name")
+                ->join('user_app', 'user_app.id_bet = mas_failed_for_finger.id_bet')
+                ->get()->getResultArray();
+        } elseif ($user && $date == 'all') {
+            $data = $this->db->table('mas_failed_for_finger')->select("mas_failed_for_finger.*, user_app.name")
+                ->join('user_app', 'user_app.id_bet = mas_failed_for_finger.id_bet')
+                ->where(['mas_failed_for_finger.id_bet' => $user])
+                ->get()->getResultArray();
+        } elseif ($user == 'all' && $date) {
+            $data = $this->db->table('mas_failed_for_finger')->select("mas_failed_for_finger.*, user_app.name")
+                ->join('user_app', 'user_app.id_bet = mas_failed_for_finger.id_bet')
+                ->where(" YEAR(mas_failed_for_finger.date) = '$tahun' AND MONTH(mas_failed_for_finger.date) ='$bulan'")
+                ->get()->getResultArray();
+        } elseif ($user && $date) {
+            $data = $this->db->table('mas_failed_for_finger')->select("mas_failed_for_finger.*, user_app.name")
+                ->join('user_app', 'user_app.id_bet = mas_failed_for_finger.id_bet')
+                ->where("mas_failed_for_finger.id_bet = '$user' AND YEAR(mas_failed_for_finger.date) = '$tahun' AND MONTH(mas_failed_for_finger.date) ='$bulan'")
+                ->get()->getResultArray();
+        }
+        return $data;
+    }
+
+    public function updateUsers($id, $dataRegister)
+    {
+        $this->db->table('user_app')->where(['id' => $id])->update($dataRegister);
+        return ['stts' => true, 'msg' => 'Proses update berhasil...!'];
+    }
+
+    public function getAbsenEtowa($user = 'all', $date = 'all')
+    {
+        if ($user == 'all' && $date == 'all') {
+            $tgl = explode("-", date('Y-m'));
+            $tahun = $tgl[0];
+            $bulan = $tgl[1];
+            $data = $this->db->table('mas_absen_etowa')->select("mas_absen_etowa.*, user_app.name")
+                ->join('user_app', 'user_app.id_finger = mas_absen_etowa.id_bet')
+                ->where(" YEAR(mas_absen_etowa.date) = '$tahun' AND MONTH(mas_absen_etowa.date) ='$bulan'")
+                ->orderBy("mas_absen_etowa.id_bet")
+                ->get()->getResultArray();
+        } elseif ($user && $date == 'all') {
+            $tgl = explode("-", date('Y-m'));
+            $tahun = $tgl[0];
+            $bulan = $tgl[1];
+            $data = $this->db->table('mas_absen_etowa')->select("mas_absen_etowa.*, user_app.name")
+                ->join('user_app', 'user_app.id_finger = mas_absen_etowa.id_bet')
+                ->where("mas_absen_etowa.id_bet = '$user' AND YEAR(mas_absen_etowa.date) = '$tahun' AND MONTH(mas_absen_etowa.date) ='$bulan'")
+                ->orderBy("mas_absen_etowa.id_bet")
+                ->get()->getResultArray();
+        } elseif ($user == 'all' && $date) {
+            $tgl = explode("-", $date);
+            $tahun = $tgl[0];
+            $bulan = $tgl[1];
+            $data = $this->db->table('mas_absen_etowa')->select("mas_absen_etowa.*, user_app.name")
+                ->join('user_app', 'user_app.id_finger = mas_absen_etowa.id_bet')
+                ->where(" YEAR(mas_absen_etowa.date) = '$tahun' AND MONTH(mas_absen_etowa.date) ='$bulan'")
+                ->orderBy("mas_absen_etowa.id_bet")
+                ->get()->getResultArray();
+        } elseif ($user && $date) {
+            $tgl = explode("-", $date);
+            $tahun = $tgl[0];
+            $bulan = $tgl[1];
+            $data = $this->db->table('mas_absen_etowa')->select("mas_absen_etowa.*, user_app.name")
+                ->join('user_app', 'user_app.id_finger = mas_absen_etowa.id_bet')
+                ->where("mas_absen_etowa.id_bet = '$user' AND YEAR(mas_absen_etowa.date) = '$tahun' AND MONTH(mas_absen_etowa.date) ='$bulan'")
+
+                ->get()->getResultArray();
+        }
+        return $data;
+    }
+
+    public function getAbsenEtowaFile($date)
+    {
+
+
+        $tgl = explode(" - ", $date);
+        $dari = date('Y-m-d', strtotime($tgl[0]));
+        $ke = date('Y-m-d', strtotime($tgl[1]));
+
+        $data =
+            $this->db->table('mas_absen_etowa')->select("mas_absen_etowa.*, user_app.name")
+            ->join('user_app', 'user_app.id_finger = mas_absen_etowa.id_bet')
+            ->where("(mas_absen_etowa.date BETWEEN CAST('$dari 00:00:00' AS DATETIME) AND CAST('$ke 23:59:59' AS DATETIME))  
+                    OR (mas_absen_etowa.date BETWEEN CAST('$dari 00:00:00' AS DATETIME) AND CAST('$ke 23:59:59'AS DATETIME)) 
+                    OR (mas_absen_etowa.date >= CAST('$dari 00:00:00'AS DATETIME) AND mas_absen_etowa.date <= CAST('$ke 23:59:59'AS DATETIME)) ")
+            ->orderBy("mas_absen_etowa.id_bet")
+            ->orderBy("mas_absen_etowa.date", 'ASC')
+            ->get()->getResultArray();
+
+        if ($data) {
+            return ['stts' => true, 'msg' => 'data siap di download...!', 'data' => $data];
+        } else {
+            return ['stts' => false, 'msg' => 'data kosong...!'];
+        }
     }
 }

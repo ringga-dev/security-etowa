@@ -50,8 +50,15 @@
 
                                 <?php $i = 0;
                                 foreach ($visitor as $u) :
+                                    if ($u['id_user'] == 'plan') {
+                                        $color = "style='background-color: #03d3fc;'";
+                                    } elseif ($u['id_user'] == 'berjalan') {
+                                        $color = "style='background-color: #fcd303;'";
+                                    } else {
+                                        $color = "style='background-color: #03fc30;'";
+                                    }
                                     $i++ ?>
-                                    <tr>
+                                    <tr <?= $color ?>>
                                         <td class="text-center"><?= $u['nama']; ?></td>
                                         <td class="text-center"><?= $u['jadwal']; ?></td>
                                         <td class="text-center"><?= $u['id_user']; ?></td>
@@ -132,13 +139,6 @@
                                     <div class="input-group">
                                         <input type="date" class="form-control col-lg-6" id="date" name="date" required>
                                         <input type="time" class="form-control col-lg-6" id="time" name="time" required>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="jumlah">QR Code</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" id="qr_code" name="qr_code" required>
                                     </div>
                                 </div>
 

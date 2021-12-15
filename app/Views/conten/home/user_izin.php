@@ -28,7 +28,6 @@
                                     <th>Keluar</th>
                                     <th>Masuk</th>
                                     <th>Date</th>
-                                    <!-- <th>Action</th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -53,8 +52,8 @@
                                     <th>Name</th>
                                     <th>Menuju</th>
                                     <th>Dari</th>
-                                    <th>Masuk</th>
                                     <th>Keluar</th>
+                                    <th>Masuk</th>
                                     <th>Date</th>
                                 </tr>
                             </tfoot>

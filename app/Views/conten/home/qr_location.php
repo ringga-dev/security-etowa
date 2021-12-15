@@ -19,7 +19,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <form action="<?= base_url('AdminControl/produc') ?>" method="POST" class="col-md-12  text-right m-2">
+                        <form action="<?= base_url('admin/failed_for_finger') ?>" method="POST" class="col-md-12  text-right m-2">
                             <div class="row text-right ml-2 mr-2">
                                 <select type="text" class="custom-select col mr-2" id="kategori" name="kategori">
                                     <option value="">Filter</option>
@@ -28,6 +28,7 @@
                                 </select>
                                 <button type="submit" class="btn btn-warning mr-2 center"><i class="fas fa-search fa-2x"></i></button>
                                 <a href="" class="btn btn-info mr-2 center" data-toggle="modal" data-target="#modal-xl"><i class="fas fa-plus-square fa-2x"></i></a>
+                                <a href="<?= base_url('home/save_pdf'); ?>" class="btn btn-success mr-2 center"><i class="fas fa-file-pdf fa-2x"></i></a>
                                 <a href="<?= base_url('home/qrcode'); ?>" class="btn btn-info mr-2 center"><i class="fas fa-print fa-2x"></i></a>
                             </div>
 
@@ -90,7 +91,7 @@
                                                                         <div class="form-group">
                                                                             <label for="harga">Title</label>
                                                                             <div class="input-group">
-                                                                                <textarea name="stts" id="stts" cols="30" style="width: 100%;"><?= $u['stts'] ?></textarea>
+                                                                                <textarea class="summernote" name="stts" id="stts" cols="30" style="width: 100%;"><?= $u['stts'] ?></textarea>
                                                                             </div>
                                                                         </div>
 
@@ -104,7 +105,7 @@
                                                                         <div class="form-group">
                                                                             <label for="dec">Keterangan</label>
                                                                             <div class="input-group">
-                                                                                <textarea id="dec" name="dec" cols="30" style="width: 100%;"><?= $u['dec'] ?></textarea>
+                                                                                <textarea class="summernote" id="dec" name="dec" cols="30" style="width: 100%;"><?= $u['dec'] ?></textarea>
                                                                             </div>
                                                                         </div>
 
@@ -190,7 +191,7 @@
                                 <div class="form-group">
                                     <label for="harga">Title</label>
                                     <div class="input-group">
-                                        <textarea name="stts" id="stts" cols="30" style="width: 100%;"></textarea>
+                                        <textarea class="summernote" name="stts" id="stts" cols="30" style="width: 100%;"></textarea>
                                     </div>
                                 </div>
 
@@ -204,9 +205,12 @@
                                 <div class="form-group">
                                     <label for="dec">Keterangan</label>
                                     <div class="input-group">
-                                        <textarea id="dec" name="dec" cols="30" style="width: 100%;"></textarea>
+                                        <!-- <textarea class="mytextarea" id="area1" name="dec" cols="30" style="width: 100%;"></textarea> -->
+                                        <textarea class="summernote" id="dec" name="dec" cols="30" style="width: 100%;"></textarea>
                                     </div>
                                 </div>
+
+
 
                                 <!-- <div class="form-group">
                                     <label for="jumlah">LOKASI</label>
@@ -232,5 +236,17 @@
 
     </div>
 </div>
+<script>
+    $(function() {
+        // Summernote
+        $('.summernote').summernote()
+
+        // CodeMirror
+        CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+            mode: "htmlmixed",
+            theme: "monokai"
+        });
+    })
+</script>
 <!-- /.modal-content -->
 <?= $this->endSection(); ?>

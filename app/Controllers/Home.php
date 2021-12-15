@@ -8,7 +8,7 @@ use TCPDF;
 
 class Home extends BaseController
 {
-
+    //fungsi untuk mendapatkan model dari agar bisa di pakai
     public function __construct()
     {
         $this->admin = new AdminModel();
@@ -16,6 +16,7 @@ class Home extends BaseController
         $this->code = service('encrypter');
     }
 
+    //tampilan awal setelah login
     public function index()
     {
         $data = [
@@ -24,6 +25,7 @@ class Home extends BaseController
         return view('conten/home/base_user', $data);
     }
 
+    //fungsi edit user
     public function edit_profile()
     {
         $data = [
@@ -34,7 +36,7 @@ class Home extends BaseController
         return view('conten/home/editprofile', $data);
     }
 
-
+    //fungsi edit password user
     public function edit_password()
     {
         $data = [
@@ -45,6 +47,7 @@ class Home extends BaseController
         return view('conten/home/editpassword', $data);
     }
 
+    //menampilkan lokasi qrcode untuk patroli
     public function qrcode()
     {
         $data = [
@@ -53,6 +56,7 @@ class Home extends BaseController
         return view('conten/print/print_qr_location', $data);
     }
 
+    //save data ke pdf
     public function save_pdf()
     {
         $data = [
@@ -68,8 +72,7 @@ class Home extends BaseController
     }
 
 
-    // SELECT * FROM `artikel` ORDER BY RAND() LIMIT 10
-
+    //halaman undian
     public function user_undia()
     {
 
@@ -80,6 +83,7 @@ class Home extends BaseController
         return view('conten/undian/user_udian', $data);
     }
 
+    //menambah user undian
     public function add_user_undia()
     {
         $sesi = session()->get('data');
@@ -95,6 +99,7 @@ class Home extends BaseController
         return redirect()->to('/home/user_undia');
     }
 
+    //delete user undian
     public function delete_user($id)
     {
         $data = $this->undian->deleteUser($id);
@@ -102,7 +107,7 @@ class Home extends BaseController
         return redirect()->to('/home/user_undia');
     }
 
-
+    //menampilkan hadiah undian
     public function user_hadia()
     {
 
@@ -112,6 +117,8 @@ class Home extends BaseController
         ];
         return view('conten/undian/hadiah_undian', $data);
     }
+
+    //menambah data hadiah undian
     public function add_hadiah()
     {
         $sesi = session()->get('data');
@@ -125,6 +132,7 @@ class Home extends BaseController
         return redirect()->to('/home/user_hadia');
     }
 
+    //delet hadiah undian
     public function delete_hadia($id)
     {
         $data = $this->undian->deleteHadiah($id);
@@ -132,7 +140,7 @@ class Home extends BaseController
         return redirect()->to('/home/user_hadia');
     }
 
-
+    //melakukan pengundian
     public function hexsa()
     {
         $data = [];
@@ -142,6 +150,7 @@ class Home extends BaseController
         echo json_encode($data);
     }
 
+    //melakukan penerimaan hadiah oleh user
     public function terima_hadia()
     {
         $user = explode(" : ", $this->request->getVar('id_user'));
@@ -149,10 +158,11 @@ class Home extends BaseController
 
         // echo json_encode($user[1] + $barang[1]);
         $data = $this->undian->terimaHadia($user[1], $barang[1]);
-
+        // wah($user[1]);
         echo json_encode($data);
     }
 
+    //hadiah yang di dapat user
     public function user_mendapat()
     {
         $data = [
@@ -161,7 +171,7 @@ class Home extends BaseController
         ];
         return view('conten/undian/user_win', $data);
     }
-
+    //scan user hadir
     public function user_scan()
     {
         $data = [
@@ -171,6 +181,7 @@ class Home extends BaseController
         return view('conten/undian/user_scan', $data);
     }
 
+    // hapus data scan kehadiran user
     public function deleteScan($id)
     {
         $data = $this->undian->deleteScanUser($id);
@@ -178,10 +189,18 @@ class Home extends BaseController
         return redirect()->to('/home/user_scan');
     }
 
+    // riset scan user 
     public function deleteScanAll()
     {
         $data = $this->undian->deleteScanUserAll();
         session()->setFlashdata('pesan', $data);
         return redirect()->to('/home/user_scan');
+    }
+
+    public function delete_userAll()
+    {
+        $data = $this->undian->deleteUserAll();
+        session()->setFlashdata('pesan', $data);
+        return redirect()->to('/home/user_undia');
     }
 }

@@ -44,7 +44,7 @@
                                         <td><?= $u['id_bet']; ?></td>
                                         <td><?= $u['w_keluar'] ? date('d-M-Y h:i:s A', $u['w_keluar']) : ""; ?></td>
                                         <td><?= $u['w_masuk'] ? date('d-M-Y h:i:s A', $u['w_masuk']) : ""; ?></td>
-                                        <td><?= ($u['w_masuk'] - $u['w_keluar']) / 60 < 0 ? "sedang berjalan" : ($u['w_masuk'] - $u['w_keluar']) / 60 . "menit" ?> </td>
+                                        <td><?= ($u['w_masuk'] - $u['w_keluar']) / 60 < 0 ? "sedang berjalan" : round(($u['w_masuk'] - $u['w_keluar']) / 60, 2) . " menit" ?> </td>
                                         <td><?= $u['dari']; ?></td>
                                         <td><?= $u['menuju']; ?></td>
                                         <td><?= $u['date']; ?></td>
@@ -89,7 +89,7 @@
             type: "post",
             url: "<?= base_url('admin/blok_akses') ?>",
             data: {
-                'nik': nik,
+                'bet': nik,
             },
             dataType: "json",
             success: function(response) {

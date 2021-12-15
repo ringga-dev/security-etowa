@@ -20,22 +20,41 @@ class GlobalView extends BaseController
         return view('conten/undian/undian', $data);
     }
 
-    public function spin()
-    {
-        // return view('conten/undian/spin');
-        $jam = date('h');
-
-        if ($jam > "13") {
-            echo "ini siang";
-        } else {
-            echo "masa percobaan!";
-        }
-
-        echo $jam;
-    }
-
     public function devisi()
     {
         return json_encode($this->undian->getDevisi());
+    }
+
+
+
+
+
+
+
+
+
+    //loginc untuk absen mengunakan bet
+
+    public function absen_user()
+    {
+        $data = [
+            'title' => 'Absen User',
+
+        ];
+
+        return view('conten/absen/absen_user', $data);
+    }
+
+
+    //loginc untuk absen kariawan etowa
+
+    public function absen_etowa()
+    {
+        $data = [
+            'title' => 'Absen Etowa',
+
+        ];
+
+        return view('conten/absen/absen_etowa', $data);
     }
 }

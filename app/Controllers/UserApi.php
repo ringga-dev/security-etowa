@@ -5,6 +5,7 @@ namespace App\Controllers;
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
 use App\Models\RestApiModel;
+use CodeIgniter\HTTP\Response;
 
 class UserApi extends ResourceController
 {
@@ -16,9 +17,9 @@ class UserApi extends ResourceController
     }
 
 
-    public function index()
+    public function userada_ya()
     {
-        //
+        return $this->respond("dada fafaf afefef", 200);
     }
 
     public function regiter_api()
@@ -154,5 +155,91 @@ class UserApi extends ResourceController
         $lat = $this->request->getPost('lat');
         $long = $this->request->getPost('long');
         $this->model->userLocation($token, $id, $lat, $long);
+    }
+
+    public function shift()
+    {
+        $token = $this->request->getPost('token');
+        $id = $this->request->getPost('id');
+        $data = $this->model->getShift($token, $id);
+
+        return $this->respond($data, 200);
+    }
+
+    public function user_late()
+    {
+        $token = $this->request->getPost('token');
+        $id = $this->request->getPost('id');
+        $id_bet = $this->request->getPost('id_bet');
+        $id_shift = $this->request->getPost('id_shift');
+        $stts = $this->request->getPost('stts');
+        $alasan = $this->request->getPost('alasan');
+        $data = $this->model->userLate($token, $id, $id_bet, $id_shift, $stts, $alasan);
+        return $this->respond($data, 200);
+    }
+
+
+    public function devisi()
+    {
+        return $this->respond($this->model->getDevisi(), 200);
+    }
+
+    public function late_user()
+    {
+        $token = $this->request->getPost('token');
+        $id = $this->request->getPost('id');
+        $data = $this->model->getLateUser($token, $id, $this->request->getPost('id_bet') ? $this->request->getPost('id_bet') : "all", $this->request->getPost('date') ? $this->request->getPost('date') : date('Y-m-d'));
+
+        return $this->respond($data, 200);
+    }
+
+    public function absen()
+    {
+        $bet = $this->request->getPost('bet');
+        $data = $this->model->absenUndia($bet);
+        return $this->respond($data, 200);
+    }
+
+
+    public function cek_user()
+    {
+        $token = $this->request->getPost('token');
+        $id = $this->request->getPost('id');
+        $id_bet = $this->request->getPost('id_bet');
+        $data = $this->model->cekUserApp($token, $id, $id_bet);
+        return $this->respond($data, 200);
+    }
+
+
+    public function gagal_finger_user()
+    {
+        $token = $this->request->getPost('token');
+        $id = $this->request->getPost('id');
+
+        $send = [
+            'id_bet' => $this->request->getPost('id_bet'),
+            'stts' => $this->request->getPost('stts'),
+            'keterangan' => $this->request->getPost('alasan'),
+            'date' => date('Y-m-d H:i:s')
+        ];
+        $data = $this->model->saveDataGagalFinger($token, $id, $send);
+        return $this->respond($data, 200);
+    }
+
+
+
+
+
+
+
+
+
+
+
+    public function absen_etowa()
+    {
+        $bet = $this->request->getPost('bet');
+        $data = $this->model->absenEtowa($bet);
+        return $this->respond($data, 200);
     }
 }
